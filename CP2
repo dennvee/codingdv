@@ -1,0 +1,148 @@
+#coding CP2
+# A spatial profile model 
+# B Brightness profile
+# C profile changes 
+
+#Libraries needed and imported for plotting 
+import math as m #
+import matplotlib.pyplot as plt #library for plotting 
+
+#Part A create profile using gaussian function 
+V= 1     #Peak brightness value
+xp= 1    #central position of star at position 1
+sigma= 1.5 #Given value of sigma
+
+# Defining x values (in arcseconds) for range 0 to 120 equally spaced. 
+x=[0]*120
+for i in range(0,len(x)):
+    x[i]= x[i-1]+0.1
+#print(x)
+    
+    
+#breaking function down for simplicity in loop below
+A= -0.5/m.pow(sigma,2)
+prof= [0]*120
+
+#Creating profile 1
+X=1
+# loop to find profile values given the input parameters and x values.
+for i in range(0,len(prof)):
+    X=m.pow((x[i]-xp),2)
+    prof[i]= V*(m.exp(A*X))
+#print(prof)
+
+#plotting x values against profile to plot the brightness profile using the matplotlib library
+plt.plot(x,prof, label = "profile 1, xp=1")
+plt.title('Brightness profile')
+plt.xlabel('arcseconds')
+plt.ylabel('Brightness')
+plt.legend()
+
+#Part B
+#generate brightness profiles of two stars
+#setting up given values for xp1 and xp2
+xp1=3 #central position of first star
+xp2=7 #central position of second star
+
+#Declaring profile 1 and profile 2
+prof1 =[0]*120 #profile of first star
+prof2= [0]*120 #profile of second star
+
+#Finding values for profile 1 of first star
+X1=1
+for i in range(0,len(prof1)):
+    X1=m.pow((x[i]-xp1),2)
+    prof1[i]= V*(m.exp(A*X1))
+#print(prof1) 
+
+#Finding values for profile 2 of second star
+X2=1
+for i in range(0,len(prof2)):
+    X2=m.pow((x[i]-xp2),2)
+    prof2[i]= V*(m.exp(A*X2))
+#print(prof2)
+
+#Finding the sums of the two star profiles
+sum=[0]*120
+for i in range(0,len(prof1)):
+    sum[i]= prof1[i]+prof2[i]
+#print(sum)
+
+#plotting profiles 1 and 2 as well as the sum of the profiles of the stars
+plt.plot(x,prof1, label = "profile 1")
+plt.plot(x,prof2, label = "profile 2")
+plt.plot(x,sum, label = "prof sum")
+plt.title('Brightness profiles of Star 1 and 2')
+plt.xlabel('arcseconds')
+plt.ylabel('Brightness')
+plt.legend()
+
+#C when xp1=3, and xp2=6 there is a single peak value, so the minimum seperation
+#is 3 as shown by the following graphs below
+# The value of FWHM = 3.54 and sigma= 1.5 in comparison to xp2-xp1. We see that xp2-xp1 is greater than sigma but less than FWHM 
+
+
+#profiles for xp=4,5,6
+B=1
+xp3=4
+prof3=[0]*120
+for i in range(0,len(prof3)):
+    B=m.pow((x[i]-xp3),2)
+    prof3[i]= V*(m.exp(A*B))
+
+xp4=5
+prof4=[0]*120
+for i in range(0,len(prof4)):
+    B=m.pow((x[i]-xp4),2)
+    prof4[i]= V*(m.exp(A*B))
+    
+xp5=6
+prof5=[0]*120
+for i in range(0,len(prof5)):
+    B=m.pow((x[i]-xp5),2)
+    prof5[i]= V*(m.exp(A*B))
+    
+ #Finding the sums for profiles 3,4,5 with profile 2
+sum1=[0]*120
+sum2=[0]*120
+sum3=[0]*120
+
+for i in range(0,len(prof2)):
+    sum1[i]= prof3[i]+prof2[i]
+#print(sum1)
+
+for i in range(0,len(prof2)):
+    sum2[i]= prof4[i]+prof2[i]
+#print(sum2)
+
+for i in range(0,len(prof2)):
+    sum3[i]= prof5[i]+prof2[i]
+#print(sum3)
+
+#Graph for seperation , xp2-xp1=3 of the two sources
+plt.plot(x,prof2,label = "profile 2, xp=7")
+plt.plot(x,prof3,label = "profile 3, xp=4")
+plt.plot(x,sum1,label = "sum")
+plt.title('Brightness profile')
+plt.xlabel('arcseconds')
+plt.ylabel('Brightness')
+plt.legend()
+
+#Graph for seperation , xp2-xp1=2 of the two sources
+plt.plot(x,prof2, label = "profile 2,xp=7")
+plt.plot(x,prof4, label = "profile 4, xp=5")
+plt.plot(x,sum2, label = "sum")
+plt.title('Brightness profile')
+plt.xlabel('arcseconds')
+plt.ylabel('Brightness')
+plt.legend()
+
+#Graph for seperation xp2-xp1=1 , of the two sources
+plt.plot(x,prof2, label = "profile 2 xp=7")
+plt.plot(x,prof5, label = "profile 5 xp=6")
+plt.plot(x,sum3, label = "sum")
+plt.title('Brightness profile')
+plt.xlabel('arcseconds')
+plt.ylabel('Brightness')
+plt.legend()
+
