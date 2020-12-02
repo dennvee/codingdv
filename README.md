@@ -1,6 +1,6 @@
 # codingdv
 # Code written in Python 
-# Assignment desciption below
+# Assignment desciption below as well as instructions to run code  
 
 Coding #2. Due Thursday 11/12/2020.
 Spatial resolution.
